@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 
 function ProvideIntl({ intl, children }) {
+  const intlJS = intl.toJS();
   return (
     <IntlProvider
-      {...intl}
-      messages={intl.messages[intl.locale]}
+      {...intlJS}
+      messages={intlJS.messages[intlJS.locale]}
     >
       {children}
     </IntlProvider>
@@ -19,5 +20,5 @@ ProvideIntl.propTypes = {
 };
 
 export default connect(state => ({
-  intl: state.intl,
+  intl: state.get('intl'),
 }))(ProvideIntl);

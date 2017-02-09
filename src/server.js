@@ -21,6 +21,7 @@ import ReactDOM from 'react-dom/server';
 import UniversalRouter from 'universal-router';
 import PrettyError from 'pretty-error';
 import { IntlProvider } from 'react-intl';
+import { Map } from 'immutable';
 
 import './serverIntlPolyfill';
 import App from './components/App';
@@ -107,9 +108,7 @@ app.use('/graphql', expressGraphQL(req => ({
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
   try {
-    const store = configureStore({
-      user: req.user || null,
-    }, {
+    const store = configureStore(Map(), {
       cookie: req.headers.cookie,
     });
 

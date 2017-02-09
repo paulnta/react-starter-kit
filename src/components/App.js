@@ -8,6 +8,7 @@
  */
 
 import React, { Children, PropTypes } from 'react';
+import { Map } from 'immutable';
 import { IntlProvider } from 'react-intl';
 
 const ContextType = {
@@ -63,7 +64,7 @@ class App extends React.PureComponent {
     if (store) {
       this.unsubscribe = store.subscribe(() => {
         const state = store.getState();
-        const newIntl = state.intl;
+        const newIntl = state.get('intl');
         if (this.intl !== newIntl) {
           this.intl = newIntl;
           console.log('Intl changed'); // eslint-disable-line no-console
@@ -85,14 +86,14 @@ class App extends React.PureComponent {
     // please do that inside the Layout component.
     const store = this.props.context && this.props.context.store;
     const state = store && store.getState();
-    this.intl = (state && state.intl) || {};
-    const { initialNow, locale, messages } = this.intl;
-    const localeMessages = (messages && messages[locale]) || {};
+    this.intl = (state && state.get('intl')) || Map();
+    const { initialNow, locale, messages } = this.intl.toObject();
+    const localeMessages = (messages && messages.get(locale)) || {};
     return (
       <IntlProvider
         initialNow={initialNow}
         locale={locale}
-        messages={localeMessages}
+        messages={localeMessages.toJS()}
         defaultLocale="en-US"
       >
         {Children.only(this.props.children)}
