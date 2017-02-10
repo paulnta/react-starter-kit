@@ -7,6 +7,7 @@
  * Written by Paul Nta <paul.nta@enerplan.ch>, $(date) $(user)
  */
 import React from 'react';
+import Link from '../../components/Link';
 import Greetings from '../../components/Greetings';
 
 class Test extends React.Component {
@@ -15,7 +16,9 @@ class Test extends React.Component {
   render() {
     return (
       <div>
-        <Greetings />
+        <Link to={'/'}>
+          <Greetings />
+        </Link>
       </div>
     );
   }

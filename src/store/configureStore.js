@@ -5,9 +5,10 @@ import rootReducer from '../reducers';
 import createHelpers from './createHelpers';
 import createLogger from './logger';
 
-export default function configureStore(initialState, helpersConfig) {
+export default function configureStore(initialState, helpersConfig, client) {
   const helpers = createHelpers(helpersConfig);
   const middleware = [thunk.withExtraArgument(helpers)];
+  middleware.push(client.middleware());
 
   let enhancer;
 
@@ -28,9 +29,11 @@ export default function configureStore(initialState, helpersConfig) {
     enhancer = applyMiddleware(...middleware);
   }
 
-  const reducer = combineReducers(rootReducer);
   // See https://github.com/rackt/redux/releases/tag/v3.1.0
-  const store = createStore(reducer, initialState, enhancer);
+  const store = createStore(combineReducers({
+    ...rootReducer,
+    apollo: client.reducer(),
+  }), initialState, enhancer);
 
   // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
   if (__DEV__ && module.hot) {

@@ -19,6 +19,7 @@ import transit from 'transit-immutable-js';
 import history from './core/history';
 import App from './components/App';
 import configureStore from './store/configureStore';
+import { configureClient } from './components/Apollo';
 import { ErrorReporter, deepForceUpdate } from './core/devUtils';
 
 [en, cs].forEach(addLocaleData);
@@ -29,7 +30,8 @@ const initialState = transit.fromJSON(
     .getAttribute('data-initial-state'),
 );
 
-const store = configureStore(initialState, { history });
+const client = configureClient();
+const store = configureStore(initialState, { history }, client);
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
 const context = {
@@ -43,6 +45,7 @@ const context = {
   // Initialize a new Redux store
   // http://redux.js.org/docs/basics/UsageWithReact.html
   store,
+  client,
 };
 
 function updateTag(tagName, keyName, keyValue, attrName, attrValue) {

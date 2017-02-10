@@ -8,26 +8,44 @@
  */
 
 import React, { PropTypes } from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import { FormattedRelative } from 'react-intl';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.css';
 
+const NewsQuery = gql`
+    query NewQuery {
+        news {
+            title
+            link
+            pubDate
+            content
+        }
+    }
+`;
+
+// @graphql(NewsQuery)
 class Home extends React.Component {
   static propTypes = {
-    news: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      link: PropTypes.string.isRequired,
-      content: PropTypes.string,
-    })).isRequired,
+    data: PropTypes.shape({
+      news: PropTypes.arrayOf(PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        link: PropTypes.string.isRequired,
+        content: PropTypes.string,
+      })),
+      loading: PropTypes.bool,
+    }),
   };
 
   render() {
+    const { data } = this.props;
+    const { news, loading } = data;
     return (
       <div className={s.root}>
         <div className={s.container}>
           <h1>React.js News</h1>
           <ul className={s.news}>
-            {this.props.news.map((item, index) => (
+            {loading ? <div>Loading...</div> : news.map((item, index) => (
               <li key={index} className={s.newsItem}>
                 <a href={item.link} className={s.newsTitle}>{item.title}</a>
                 {' '}
@@ -47,4 +65,5 @@ class Home extends React.Component {
   }
 }
 
-export default withStyles(s)(Home);
+export default graphql(NewsQuery)(Home);
+

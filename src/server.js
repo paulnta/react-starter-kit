@@ -11,12 +11,11 @@ import 'babel-polyfill';
 import path from 'path';
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import fetch from './core/fetch';
 import requestLanguage from 'express-request-language';
 import bodyParser from 'body-parser';
+import { renderToStringWithData } from 'react-apollo';
 import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
 import { makeExecutableSchema } from 'graphql-tools';
-import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import UniversalRouter from 'universal-router';
@@ -27,10 +26,9 @@ import { Map } from 'immutable';
 import './serverIntlPolyfill';
 import App from './components/App';
 import Html from './components/Html';
-import { ApolloProvider, renderToStringWithData } from 'react-apollo';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
-
+import fetch from './core/fetch';
 import Schema from './data/schema.graphqls';
 import Resolvers from './data/resolvers';
 import './data/mongoose';
@@ -152,7 +150,7 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
+    data.children = await renderToStringWithData(<App context={context}>{route.component}</App>);
     data.style = [...css].join('');
     data.scripts = [
       assets.vendor.js,
