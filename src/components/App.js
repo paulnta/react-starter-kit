@@ -10,6 +10,7 @@
 import React, { Children, PropTypes } from 'react';
 import { Map } from 'immutable';
 import { IntlProvider } from 'react-intl';
+import ThemeProvider from './Theme';
 
 const ContextType = {
   // Enables critical path CSS rendering
@@ -96,7 +97,9 @@ class App extends React.PureComponent {
         messages={localeMessages.toJS()}
         defaultLocale="en-US"
       >
-        {Children.only(this.props.children)}
+        <ThemeProvider>
+          {Children.only(this.props.children)}
+        </ThemeProvider>
       </IntlProvider>
     );
   }

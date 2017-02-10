@@ -20,7 +20,10 @@ const messages = defineMessages({
 
 function Greetings() {
   return (
-    <RaisedButton label={<FormattedMessage {...messages.greetings} />} />
+    <RaisedButton
+      primary
+      label={<FormattedMessage {...messages.greetings} />}
+    />
   );
 }
 

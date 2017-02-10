@@ -6,7 +6,7 @@
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Written by Paul Nta <paul.nta@enerplan.ch>, $(date) $(user)
  */
-import React, { PropTypes } from 'react';
+import React, { Children, PropTypes } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { getLightTheme } from './theme';
@@ -17,7 +17,7 @@ injectTapEventPlugin();
 function ThemeProvider({ children }) {
   return (
     <MuiThemeProvider muiTheme={getLightTheme()}>
-      {children}
+      {Children.only(children)}
     </MuiThemeProvider>
   );
 }
