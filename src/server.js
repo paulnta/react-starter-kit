@@ -11,9 +11,12 @@ import 'babel-polyfill';
 import path from 'path';
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import fetch from './core/fetch';
 import requestLanguage from 'express-request-language';
 import bodyParser from 'body-parser';
-import expressGraphQL from 'express-graphql';
+import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
+import { makeExecutableSchema } from 'graphql-tools';
+import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import UniversalRouter from 'universal-router';
@@ -24,13 +27,17 @@ import { Map } from 'immutable';
 import './serverIntlPolyfill';
 import App from './components/App';
 import Html from './components/Html';
+import { ApolloProvider, renderToStringWithData } from 'react-apollo';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
 
-import schema from './data/schema';
+import Schema from './data/schema.graphqls';
+import Resolvers from './data/resolvers';
+import './data/mongoose';
 import routes from './routes';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
+import { configureClient } from './components/Apollo';
 import { setRuntimeVariable } from './actions/runtime';
 import { setLocale } from './actions/intl';
 import { port, locales } from './config';
@@ -44,6 +51,7 @@ const app = express();
 global.navigator = global.navigator || {};
 global.navigator.userAgent = global.navigator.userAgent || 'all';
 
+global.fetch = fetch;
 //
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
@@ -71,21 +79,33 @@ if (process.env.NODE_ENV !== 'production') {
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
-app.use('/graphql', expressGraphQL(req => ({
-  schema,
-  graphiql: process.env.NODE_ENV !== 'production',
+// see: http://dev.apollodata.com/tools/graphql-tools/generate-schema.html#makeExecutableSchema
+const executableSchema = makeExecutableSchema({
+  typeDefs: Schema,
+  resolvers: Resolvers,
+});
+
+// see: http://dev.apollodata.com/tools/graphql-server/setup.html
+app.use('/graphql', bodyParser.json(), graphqlExpress(req => ({
+  schema: executableSchema,
   rootValue: { request: req },
-  pretty: process.env.NODE_ENV !== 'production',
+  debug: process.env.NODE_ENV !== 'production',
 })));
+
+// see: http://dev.apollodata.com/tools/graphql-server/graphiql.html
+app.use('/graphiql', graphiqlExpress({
+  endpointURL: '/graphql',
+}));
 
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
   try {
+    const client = configureClient({ req });
     const store = configureStore(Map(), {
       cookie: req.headers.cookie,
-    });
+    }, client);
 
     store.dispatch(setRuntimeVariable({
       name: 'initialNow',
@@ -116,6 +136,7 @@ app.get('*', async (req, res, next) => {
       // Initialize a new Redux store
       // http://redux.js.org/docs/basics/UsageWithReact.html
       store,
+      client,
     };
 
     const route = await UniversalRouter.resolve(routes, {

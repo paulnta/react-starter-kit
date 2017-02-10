@@ -135,6 +135,11 @@ const config = {
           limit: 10000,
         },
       },
+      // load graphql schemas
+      {
+        test: /\.graphqls$/,
+        loader: 'raw-loader',
+      },
     ],
   },
 
