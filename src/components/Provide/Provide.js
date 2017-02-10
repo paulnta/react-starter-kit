@@ -1,12 +1,15 @@
 import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
 import IntlProvider from './IntlProvider';
+import ThemeProvider from '../Theme';
 
 function Provide({ store, children }) {
   return (
     <Provider store={store}>
       <IntlProvider>
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </IntlProvider>
     </Provider>
   );

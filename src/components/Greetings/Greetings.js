@@ -7,6 +7,7 @@
  * Written by Paul Nta <paul.nta@enerplan.ch>, $(date) $(user)
  */
 import React from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
 import { defineMessages, FormattedMessage } from 'react-intl';
 
 const messages = defineMessages({
@@ -19,9 +20,7 @@ const messages = defineMessages({
 
 function Greetings() {
   return (
-    <div>
-      <FormattedMessage {...messages.greetings} />
-    </div>
+    <RaisedButton label={<FormattedMessage {...messages.greetings} />} />
   );
 }
 
