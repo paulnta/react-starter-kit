@@ -1,52 +1,6 @@
 # Check the cheat-sheet for more info about
 # https://raw.githubusercontent.com/sogko/graphql-shorthand-notation-cheat-sheet/master/graphql-shorthand-notation-cheat-sheet.png
 
-scalar JSON
-scalar Date
-
-type Shape {
-    rows: Int!
-    cols: Int!
-}
-
-type Point {
-    x: Int!
-    y: Int!
-}
-
-type Visual {
-    key: String
-    data: JSON
-    layout: JSON
-    meta: JSON
-    shape: Shape
-    origin: Point
-    preview: String
-}
-
-type ReportPage {
-    position: Int
-    key: String
-    visuals: [Visual]
-    shape: Shape
-}
-
-type Report {
-    key: String
-    type: String
-    nbPages: Int!
-    pages(offset: Int, limit: Int): [ReportPage]
-    page(position: Int!): ReportPage
-    date: Date
-}
-
-type Query {
-    report(reportKey: String!): Report
-    reports: [Report]
-    news: [NewsItem]
-    intl(locale: String!): [IntlMessage]
-}
-
 type IntlMessage {
     id: String!
     defaultMessage: String!
@@ -61,6 +15,11 @@ type NewsItem {
     author: String
     pubDate: String!
     content: String
+}
+
+type Query {
+    news: [NewsItem]
+    intl(locale: String!): [IntlMessage]
 }
 
 schema {
