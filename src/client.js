@@ -16,6 +16,7 @@ import { createPath } from 'history/PathUtils';
 import { addLocaleData } from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import cs from 'react-intl/locale-data/cs';
+import transit from 'transit-immutable-js';
 import history from './core/history';
 import App from './components/App';
 import configureStore from './store/configureStore';
@@ -23,7 +24,13 @@ import { ErrorReporter, deepForceUpdate } from './core/devUtils';
 
 [en, cs].forEach(addLocaleData);
 
-const store = configureStore(window.APP_STATE, { history });
+const initialState = transit.fromJSON(
+  document
+    .getElementById('app-state')
+    .getAttribute('data-initial-state'),
+);
+
+const store = configureStore(initialState, { history });
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
 const context = {
@@ -143,7 +150,7 @@ async function onLocationChange(location) {
       ...context,
       path: location.pathname,
       query: queryString.parse(location.search),
-      locale: store.getState().intl.locale,
+      locale: store.getState().getIn(['intl', 'locale']),
     });
 
     // Prevent multiple page renders during the routing process

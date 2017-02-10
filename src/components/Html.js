@@ -8,7 +8,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import serialize from 'serialize-javascript';
+import transit from 'transit-immutable-js';
 import { analytics } from '../config';
 
 class Html extends React.Component {
@@ -33,14 +33,14 @@ class Html extends React.Component {
           <meta name="description" content={description} />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-          {style && <style id="css" dangerouslySetInnerHTML={{ __html: style }} />}
+          <style id="css" dangerouslySetInnerHTML={{ __html: style || '' }} />
         </head>
         <body>
           <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
           {state && (
             <script
-              dangerouslySetInnerHTML={{ __html:
-              `window.APP_STATE=${serialize(state, { isJSON: true })}` }}
+              id="app-state"
+              data-initial-state={transit.toJSON(state)}
             />
           )}
           {scripts && scripts.map(script => <script key={script} src={script} />)}

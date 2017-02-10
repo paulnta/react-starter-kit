@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": "Greetings.greetings",
+    "description": "Greetings message",
+    "defaultMessage": "Bienvenue",
+    "message": "",
+    "files": [
+      "src/components/Greetings/Greetings.js"
+    ]
+  }
+]

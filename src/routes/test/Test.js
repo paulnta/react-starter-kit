@@ -7,6 +7,7 @@
  * Written by Paul Nta <paul.nta@enerplan.ch>, $(date) $(user)
  */
 import React from 'react';
+import Greetings from '../../components/Greetings';
 
 class Test extends React.Component {
   static propTypes = {}
@@ -14,7 +15,7 @@ class Test extends React.Component {
   render() {
     return (
       <div>
-        Test Page
+        <Greetings />
       </div>
     );
   }
