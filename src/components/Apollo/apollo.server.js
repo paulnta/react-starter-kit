@@ -6,6 +6,7 @@
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Written by Paul Nta <paul.nta@enerplan.ch>, $(date) $(user)
  */
+/* eslint-disable import/prefer-default-export */
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 
 export const configureClient = ({ req }) => new ApolloClient({
