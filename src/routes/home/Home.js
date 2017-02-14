@@ -8,6 +8,7 @@
  */
 
 import React, { PropTypes } from 'react';
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { FormattedRelative } from 'react-intl';
@@ -24,7 +25,8 @@ const NewsQuery = gql`
     }
 `;
 
-// @graphql(NewsQuery)
+@withStyles(s)
+@graphql(NewsQuery)
 class Home extends React.Component {
   static propTypes = {
     data: PropTypes.shape({
@@ -43,7 +45,7 @@ class Home extends React.Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h1>React.js News</h1>
+          <h1>React.js News 1</h1>
           <ul className={s.news}>
             {loading ? <div>Loading...</div> : news.map((item, index) => (
               <li key={index} className={s.newsItem}>
@@ -65,5 +67,5 @@ class Home extends React.Component {
   }
 }
 
-export default graphql(NewsQuery)(Home);
+export default Home
 

@@ -9,23 +9,145 @@
 
 :root {
   /*
-   * Typography
-   * ======================================================================== */
-
-  --font-family-base: 'Segoe UI', 'HelveticaNeue-Light', sans-serif;
-
-  /*
-   * Layout
-   * ======================================================================== */
-
-  --max-content-width: 1000px;
-
-  /*
    * Media queries breakpoints
    * ======================================================================== */
+  @custom-media --screen-mobile (min-width: 0); /* iPad Portrait */
+  @custom-media --screen-tablet (min-width: 600px); /* iPad landscape and mac book */
+  @custom-media --screen-laptop (min-width: 1024px); /* mac book */
+  @custom-media --screen-desktop (min-width: 1280px); /* larger screens */
+  @custom-media --screen-large-desktop (min-width: 1600px);
 
-  --screen-xs-min: 480px;  /* Extra small screen / phone */
-  --screen-sm-min: 768px;  /* Small screen / tablet */
-  --screen-md-min: 992px;  /* Medium screen / desktop */
-  --screen-lg-min: 1200px; /* Large screen / wide desktop */
+  /*
+  * Colors
+  * ======================================================================== */
+
+  /* Base theme colors */
+  --color-primary1: #0172ff;
+  --color-primary2: #0159c7;
+  --color-primary3: #0159c7;
+  --color-accent1: #0bd7aa;
+  --color-accent2: #01f1bc;
+  --color-accent3: #01f1bc;
+
+  /* Material Light theme colors */
+  --color-light-primary-text: rgba(0, 0, 0, 0.87);
+  --color-light-secondary-text: rgba(0, 0, 0, 0.54);
+  --color-light-border: rgba(0, 0, 0, 0.12);
+  --color-light-disabled: rgba(0, 0, 0, 0.3);
+
+  /* Material Dark theme colors */
+  --color-dark-primary-text: rgba(255, 255, 255, 1);
+  --color-dark-secondary-text: rgba(255, 255, 255, 0.7);
+  --color-dark-border: rgba(255, 255, 255, 0.12);
+  --color-dark-disabled: rgba(255, 255, 255, 0.5);
+  --md-color-gray50: #fafafa;
+  --md-color-gray100: #f5f5f5;
+  --md-color-gray200: #eee;
+  --md-color-gray300: #e0e0e0;
+
+  /*
+   * Typography
+   * ======================================================================== */
+  --font-family-base: 'Roboto', 'Noto', sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --max-content-width: 1000px;
+
+  --md-font-family-base: {
+    font-family: var(--font-family-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  };
+
+  --md-font-common-nowrap: {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  };
+
+  --md-display1: {
+    @apply --md-font-family-base;
+
+    font-size: 34px;
+    font-weight: var(--font-weight-medium);
+    line-height: 40px;
+    letter-spacing: -0.01em;
+  };
+
+  --md-headline: {
+    @apply --md-font-family-base;
+
+    font-size: 24px;
+    font-weight: var(--font-weight-medium);
+    line-height: 32px;
+    letter-spacing: -0.012em;
+  };
+
+  --md-title: {
+    @apply --md-font-family-base;
+    @apply(--md-font-common-nowrap);
+
+    font-weight: var(--font-weight-medium);
+    font-size: 20px;
+    line-height: 28px;
+
+    @media (--screen-tablet) {
+      font-size: 17px;
+    }
+  };
+
+  --md-subheading: {
+    @apply --md-font-family-base;
+
+    font-weight: var(--font-weight-regular);
+    font-size: 16px;
+    line-height: 24px;
+
+    @media (--screen-desktop) {
+      font-size: 15px;
+    }
+  };
+
+  --md-body2: {
+    @apply --md-font-family-base;
+
+    font-size: 14px;
+    font-weight: var(--font-weight-medium);
+    line-height: 24px;
+
+    @media (--screen-desktop) {
+      font-size: 13px;
+    }
+  };
+
+  --md-body1: {
+    @apply --md-font-family-base;
+
+    font-weight: var(--font-weight-regular);
+    font-size: 14px;
+    line-height: 20px;
+
+    @media (--screen-desktop) {
+      font-size: 13px;
+    }
+  };
+
+  --md-caption: {
+    @apply --md-font-family-base;
+    @apply(--md-font-common-nowrap);
+
+    font-weight: var(--font-weight-regular);
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--color-light-secondary-text);
+  };
+
+  --md-button: {
+    @apply --md-font-family-base;
+
+    text-transform: uppercase;
+    font-weight: var(--font-weight-medium);
+    font-size: 14px;
+    line-height: 24px;
+  };
 }

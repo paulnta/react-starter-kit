@@ -19,6 +19,9 @@ module.exports = () => ({
     // Allow you to fix url() according to postcss to and/or from options
     // https://github.com/postcss/postcss-url
     require('postcss-url')(),
+    // PostCSS plugin enabling @apply rules (custom properties sets references)
+    // https://github.com/pascalduez/postcss-apply
+    require('postcss-apply'),
     // W3C variables, e.g. :root { --color: red; } div { background: var(--color); }
     // https://github.com/postcss/postcss-custom-properties
     require('postcss-custom-properties')(),
