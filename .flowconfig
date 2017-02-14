@@ -1,7 +1,10 @@
+[options]
+# Ignore flow warning about not supporting decorator types fully yet
+esproposal.decorators=ignore
+
 [ignore]
 .*/build
 .*/config
-.*/node_modules
-.*/gulpfile.js
-
-[include]
+.*/node_modules/fbjs/.*
+.*/node_modules/graphql/.*
+.*/node_modules/stylelint/lib/.*

@@ -6,23 +6,22 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */
-
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import { FormattedRelative } from 'react-intl';
-import s from './Home.css';
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+import { FormattedRelative } from 'react-intl'
+import s from './Home.css'
 
 const NewsQuery = gql`
-    query NewQuery {
-        news {
-            title
-            link
-            pubDate
-            content
-        }
+  query NewQuery {
+    news {
+      title
+      link
+      pubDate
+      content
     }
+  }
 `;
 
 @withStyles(s)
@@ -37,11 +36,11 @@ class Home extends React.Component {
       })),
       loading: PropTypes.bool,
     }),
-  };
+  }
 
   render() {
-    const { data } = this.props;
-    const { news, loading } = data;
+    const { data } = this.props
+    const { news, loading } = data
     return (
       <div className={s.root}>
         <div className={s.container}>
@@ -59,13 +58,14 @@ class Home extends React.Component {
                   dangerouslySetInnerHTML={{ __html: item.content.substring(0, 100) }}
                 />
               </li>
-            ))}
+              ))}
           </ul>
         </div>
       </div>
-    );
+    )
   }
 }
+
 
 export default Home
 

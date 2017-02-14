@@ -4,7 +4,7 @@ Let's see how a custom routing solution under 100 lines of code may look like.
 
 First, you will need to implement the **list of application routes** in which each route can be
 represented as an object with properties of `path` (a parametrized URL path string), `action`
-(a function), and optionally `children` (a list of sub-routes, each of which is a route object). 
+(a function), and optionally `children` (a list of sub-routes, each of which is a route object).
 The `action` function returns anything - a string, a React component, etc. For example:
 
 #### `src/routes/index.js`
@@ -38,7 +38,7 @@ export default [
 
 Next, implement a **URL Matcher** function that will be responsible for matching a parametrized
 path string to the actual URL. For example, calling `matchURI('/tasks/:id', '/tasks/123')` must
-return `{ id: '123' }` while calling `matchURI('/tasks/:id', '/foo')` must return `null`.
+return `{ id: '123' }` while calling `matchURI('/tasks/:id', '/multiply')` must return `null`.
 Fortunately, there is a great library called [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp)
 that makes this task very easy. Here is how a URL matcher function may look like:
 
@@ -98,7 +98,7 @@ import routes from './routes';
 
 router.resolve(routes, { pathname: '/tasks' }).then(result => {
   console.log(result);
-  // => { title: 'To-do', component: <TodoList .../> } 
+  // => { title: 'To-do', component: <TodoList .../> }
 });
 ```
 
@@ -181,9 +181,9 @@ class App extends React.Component {
 
 Though, it is a common practice to extract that transitioning functionality into a stand-alone
 (`Link`) component that can be used as follows:
- 
+
 ```html
-<Link to="/tasks/123">View Task #123</Link> 
+<Link to="/tasks/123">View Task #123</Link>
 ```
 
 ### Routing in React Starter Kit

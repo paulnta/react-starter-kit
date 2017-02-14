@@ -90,7 +90,9 @@
     "eslint-plugin-react": "^6.9.0",
     "extend": "^3.0.0",
     "file-loader": "^0.10.0",
+    "flow-bin": "^0.39.0",
     "front-matter": "^2.1.2",
+    "gaze": "^1.1.2",
     "git-repository": "^0.1.4",
     "glob": "^7.1.1",
     "json-loader": "^0.5.4",
@@ -242,6 +244,7 @@
     "deploy": "babel-node tools/run deployToAzureWebApps",
     "render": "babel-node tools/run render",
     "serve": "babel-node tools/run runServer",
-    "start": "babel-node tools/run start"
+    "start": "babel-node tools/run start",
+    "updateSchema": "babel-node tools/run updateSchema"
   }
 }
