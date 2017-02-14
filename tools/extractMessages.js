@@ -121,7 +121,7 @@ async function extractMessages() {
       const posixName = posixPath(fileName);
       const result = transform(code, {
         presets: pkg.babel.presets,
-        plugins: ['react-intl'],
+        plugins: ['react-intl', 'transform-decorators-legacy'],
       }).metadata['react-intl'];
       if (result.messages && result.messages.length) {
         fileToMessages[posixName] = result.messages.sort(compareMessages);

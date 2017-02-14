@@ -65,6 +65,7 @@
     "babel-loader": "^6.2.10",
     "babel-plugin-react-intl": "^2.3.1",
     "babel-plugin-rewire": "^1.0.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-runtime": "^6.22.0",
     "babel-preset-latest": "^6.22.0",
     "babel-preset-react": "^6.22.0",
@@ -171,6 +172,7 @@
       "browser": true
     },
     "rules": {
+      "semi": "off",
       "arrow-parens": "off",
       "generator-star-spacing": "off",
       "import/extensions": "off",

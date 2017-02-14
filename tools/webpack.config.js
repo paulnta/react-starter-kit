@@ -62,6 +62,9 @@ const config = {
             ],
           ],
           plugins: [
+            // allows to use decorators
+            // https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy
+            'transform-decorators-legacy',
             // Externalise references to helpers and builtins,
             // automatically polyfilling your code without polluting globals.
             // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-runtime
