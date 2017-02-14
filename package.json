@@ -83,6 +83,7 @@
     "enzyme": "^2.7.1",
     "eslint": "^3.14.1",
     "eslint-config-airbnb": "^14.0.0",
+    "eslint-import-resolver-webpack": "^0.8.1",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-css-modules": "^2.1.0",
     "eslint-plugin-import": "^2.2.0",
@@ -167,8 +168,23 @@
       "plugin:css-modules/recommended"
     ],
     "plugins": [
-      "css-modules"
+      "css-modules",
+      "import"
     ],
+    "settings": {
+      "import/resolver": {
+        "webpack": {
+          "config": {
+            "resolve": {
+              "modules": [
+                "src",
+                "node_modules"
+              ]
+            }
+          }
+        }
+      }
+    },
     "globals": {
       "__DEV__": true
     },
@@ -178,7 +194,16 @@
     "rules": {
       "semi": "off",
       "arrow-parens": "off",
-      "new-cap": "off",
+      "new-cap": [
+        2,
+        {
+          "capIsNewExceptions": [
+            "List",
+            "Map",
+            "Set"
+          ]
+        }
+      ],
       "generator-star-spacing": "off",
       "import/extensions": "off",
       "import/no-extraneous-dependencies": "off",

@@ -22,6 +22,8 @@ import UniversalRouter from 'universal-router';
 import PrettyError from 'pretty-error';
 import { IntlProvider } from 'react-intl';
 import { Map } from 'immutable';
+import { setLocale } from './modules/intl';
+import { setRuntimeVariable } from './modules/runtime';
 
 import './serverIntlPolyfill';
 import App from './components/App';
@@ -36,8 +38,6 @@ import routes from './routes';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
 import { configureClient } from './components/Apollo';
-import { setRuntimeVariable } from './actions/runtime';
-import { setLocale } from './actions/intl';
 import { port, locales } from './config';
 
 const app = express();

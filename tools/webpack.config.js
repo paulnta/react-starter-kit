@@ -22,6 +22,8 @@ const isVerbose = process.argv.includes('--verbose');
 // client-side (client.js) and server-side (server.js) bundles
 // -----------------------------------------------------------------------------
 
+console.log('PATH: ', path.resolve(__dirname, '../src/modules'))
+
 const config = {
   context: path.resolve(__dirname, '../src'),
 
